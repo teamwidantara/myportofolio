@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b2545" />
+  <!-- EDIT: deskripsi singkat situs (muncul di hasil pencarian Google) -->
+  <meta name="description" content="Grand Line Adventure — portofolio pribadi bertema petualangan bajak laut." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f4e4bc' stroke='%236b4423' stroke-width='4'/%3E%3Cpath d='M32 8l6 24-6 24-6-24z' fill='%23c8312b'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700&family=Pirata+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- EDIT: judul tab browser -->
+  <title>Grand Line Journey — Portfolio</title>
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+  <a href="#about" class="skip-link">Lewati ke konten</a>
+
+  <!-- PROGRESS RUTE PELAYARAN -->
+  <div class="voyage" aria-hidden="true">
+    <div class="voyage__line"></div>
+    <div class="voyage__done" id="voyage-done" style="transform:scaleX(0)"></div>
+    <div class="voyage__ship" id="voyage-ship" style="left:0%" data-icon="ship"></div>
+  </div>
+
+  <!-- NAVBAR — teks menu diatur di js/data.js (nav); nama panggilan di profile.nickname -->
+  <header class="nav">
+    <nav class="nav__bar" aria-label="Navigasi utama">
+      <a href="#home" class="nav__brand" aria-label="Ke bagian atas">
+        <span class="nav__compass" data-icon="compass" data-size="38"></span>
+        <span class="nav__name" data-bind="profile.nickname"></span>
+      </a>
+      <ul id="nav-menu" class="nav__menu"></ul>
+      <div class="nav__right">
+        <!-- TOMBOL MODE SIANG / MALAM -->
+        <button type="button" class="theme-btn" id="theme-btn" aria-pressed="false" aria-label="Ganti ke mode malam" title="Siang / Malam">
+          <svg class="theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+          <svg class="theme-btn__moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z" fill="currentColor"/><circle cx="17.5" cy="5.5" r="1" fill="currentColor"/><circle cx="20.3" cy="9" r=".7" fill="currentColor"/></svg>
+        </button>
+        <button type="button" class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ==================== HERO ==================== -->
+    <section id="home" class="hero" aria-label="Pembuka">
+      <!-- Latar laut (dekorasi, tidak perlu diedit) -->
+      <div class="sea" aria-hidden="true">
+        <div class="sea__sky"></div>
+        <!-- LAUT 3D (WebGL). Bila WebGL tidak tersedia, otomatis memakai ombak CSS sebagai cadangan -->
+        <canvas class="sea__gl" id="sea-gl"></canvas>
+        <div class="sea__sun-wrap l-sun"><div class="sea__rays"></div><div class="sea__sun"></div></div>
+        <div class="l-clouds-far" data-clouds="1 3"></div>
+        <div class="l-clouds-near" data-clouds="2 4"></div>
+        <div class="l-gulls"><span data-gull="1"></span><span data-gull="2"></span></div>
+        <!-- BURUNG SIANG HARI (tempel di dalam <div class="sea">, tepat di bawah baris <div class="l-gulls">...</div>) -->
+<div class="birds" aria-hidden="true">
+  <svg class="bird" viewBox="0 0 44 22" style="--y:14%;--dur:26s;--delay:-3s;--s:1.0"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:18%;--dur:26s;--delay:-3.7s;--s:0.85"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:18%;--dur:26s;--delay:-4.4s;--s:0.85"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:23%;--dur:26s;--delay:-5.2s;--s:0.7"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:22%;--dur:26s;--delay:-6s;--s:0.7"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:11%;--dur:34s;--delay:-15s;--s:0.6"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+  <svg class="bird" viewBox="0 0 44 22" style="--y:28%;--dur:30s;--delay:-22s;--s:0.75"><g class="bird__wing bird__wing--l"><path d="M22 12Q12 2 1 6Q11 6 22 14Z"/></g><g class="bird__wing bird__wing--r"><path d="M22 12Q32 2 43 6Q33 6 22 14Z"/></g><ellipse cx="22" cy="13" rx="3.2" ry="2.2"/></svg>
+</div>
+        <div class="l-horizon">
+          <div class="sea__horizon"></div>
+        </div>
+        <div class="l-wave l-wave--1"><svg class="wave wave--1" viewBox="0 0 2400 220" preserveAspectRatio="none"><path d="M0 60 Q150 20 300 60 T600 60 T900 60 T1200 60 T1500 60 T1800 60 T2100 60 T2400 60 V220 H0 Z"/></svg></div>
+        <!-- KAPAL LAYAR ORISINAL (dekorasi). Ukuran/posisi diatur di css/style.css bagian ".caravel" -->
+        <div class="caravel" aria-hidden="true">
+          <div class="caravel__roll">
+            <svg viewBox="0 0 360 300" focusable="false">
+              <defs>
+                <linearGradient id="cv-sail" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f3ead3"/><stop offset="1" stop-color="#d9c9a0"/></linearGradient>
+                <linearGradient id="cv-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6535"/><stop offset=".55" stop-color="#6b4423"/><stop offset="1" stop-color="#33200f"/></linearGradient>
+                <linearGradient id="cv-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b0"/><stop offset=".5" stop-color="#e9b44c"/><stop offset="1" stop-color="#a9791f"/></linearGradient>
+                <radialGradient id="cv-foam" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              </defs>
+              <!-- bayangan & buih di air -->
+              <ellipse cx="190" cy="262" rx="165" ry="14" fill="#0b2545" opacity=".35"/>
+              <ellipse class="caravel__foam" cx="190" cy="254" rx="170" ry="11" fill="url(#cv-foam)"/>
+              <ellipse class="caravel__foam caravel__foam--2" cx="330" cy="256" rx="48" ry="7" fill="url(#cv-foam)"/>
+              <!-- tiang -->
+              <g stroke="#2b1a0b" stroke-linecap="round">
+                <path d="M180 26V232" stroke-width="6"/>
+                <path d="M268 66V226" stroke-width="5"/>
+                <path d="M100 84V222" stroke-width="5"/>
+                <path d="M302 214L352 188" stroke-width="5"/>
+                <path d="M126 58H234M138 32H222M236 90H300" stroke-width="3.5"/>
+              </g>
+              <!-- layar -->
+              <g class="caravel__sails" stroke="#8c7a52" stroke-width="1.3" stroke-linejoin="round">
+                <path class="sail" d="M138 34Q180 46 222 34L228 58Q180 70 132 58Z" fill="url(#cv-sail)"/>
+                <path class="sail sail--2" d="M130 62Q180 80 234 62L242 152Q182 174 122 152Z" fill="url(#cv-sail)"/>
+                <path class="sail sail--3" d="M236 92Q268 102 300 92L304 150Q268 164 232 150Z" fill="url(#cv-sail)"/>
+                <path class="sail sail--2" d="M100 88L50 214L102 206Z" fill="url(#cv-sail)"/>
+                <path class="sail sail--3" d="M272 74L350 190L278 190Z" fill="url(#cv-sail)" opacity=".96"/>
+                <!-- jahitan layar -->
+                <path d="M158 70L154 160M182 74V166M206 70L210 160" stroke="#b9a678" stroke-width=".9" fill="none" opacity=".7"/>
+              </g>
+              <!-- lambang bintang kompas (orisinal) di layar utama -->
+              <g transform="translate(182 112)">
+                <circle r="25" fill="none" stroke="#c8312b" stroke-width="3"/>
+                <path d="M0-22L5-5 22 0 5 5 0 22-5 5-22 0-5-5Z" fill="#c8312b"/>
+                <path d="M-14-14L-3-3M14-14L3-3M-14 14L-3 3M14 14L3 3" stroke="#e9b44c" stroke-width="2.5" stroke-linecap="round"/>
+                <circle r="4" fill="#e9b44c"/>
+              </g>
+              <!-- bendera -->
+              <path class="pennant" d="M180 26L236 34L180 46Z" fill="#c8312b"/>
+              <path class="pennant pennant--2" d="M268 66L312 73L268 82Z" fill="#e9b44c"/>
+              <path class="pennant pennant--3" d="M100 84L142 90L100 98Z" fill="#c8312b"/>
+              <!-- tali -->
+              <g stroke="#3e2714" stroke-width="1" opacity=".7" fill="none">
+                <path d="M180 30L72 216M180 30L300 216M268 70L330 214M100 88L60 214M180 30L268 70"/>
+              </g>
+              <!-- lambung -->
+              <path d="M36 190H112V216H318L350 196Q346 232 308 252Q290 262 262 262H120Q70 262 48 232Q34 214 36 190Z" fill="url(#cv-hull)" stroke="#2b1a0b" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M44 226H336" stroke="url(#cv-gold)" stroke-width="4" fill="none"/>
+              <path d="M52 238H322M62 249H296" stroke="#2b1a0b" stroke-width="1" opacity=".45" fill="none"/>
+              <path d="M36 190H112V198H36Z" fill="url(#cv-gold)" opacity=".9"/>
+              <g fill="#1d1208" stroke="url(#cv-gold)" stroke-width="2">
+                <circle cx="150" cy="237" r="6"/><circle cx="190" cy="237" r="6"/><circle cx="230" cy="237" r="6"/><circle cx="270" cy="236" r="6"/>
+              </g>
+              <g class="caravel__win" fill="#ffe9a8" opacity=".85"><rect x="50" y="203" width="10" height="9" rx="2"/><rect x="68" y="203" width="10" height="9" rx="2"/><rect x="86" y="203" width="10" height="9" rx="2"/></g>
+              <!-- hiasan haluan: medali bintang emas (orisinal) -->
+              <g transform="translate(330 214)">
+                <circle r="11" fill="url(#cv-gold)" stroke="#6b4423" stroke-width="2"/>
+                <path d="M0-8L2-2 8 0 2 2 0 8-2 2-8 0-2-2Z" fill="#c8312b"/>
+              </g>
+              <!-- pagar geladak -->
+              <path d="M112 216V208H318V216" fill="none" stroke="#2b1a0b" stroke-width="2.5"/>
+            </svg>
+            <svg class="caravel__lights" viewBox="0 0 360 300" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="dt-sail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a4524" stop-opacity="0"/><stop offset=".55" stop-color="#5a4524" stop-opacity=".12"/><stop offset="1" stop-color="#3a2a12" stop-opacity=".45"/></linearGradient>
+    <linearGradient id="dt-billow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a12" stop-opacity=".28"/><stop offset=".3" stop-color="#3a2a12" stop-opacity="0"/></linearGradient>
+    <linearGradient id="dt-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>
+    <radialGradient id="dt-glow"><stop offset="0" stop-color="#fff3c4" stop-opacity=".95"/><stop offset=".3" stop-color="#ffc766" stop-opacity=".55"/><stop offset="1" stop-color="#ff9a2e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="dt-glow2"><stop offset="0" stop-color="#ffb84d" stop-opacity=".30"/><stop offset="1" stop-color="#ff9a2e" stop-opacity="0"/></radialGradient>
+    <linearGradient id="dt-refl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc766" stop-opacity=".65"/><stop offset="1" stop-color="#ffc766" stop-opacity="0"/></linearGradient>
+  </defs>
+ 
+  <!-- bayangan & volume layar (ikut berkibar seperti layar aslinya) -->
+  <g stroke="none">
+    <path class="sail" d="M138 34Q180 46 222 34L228 58Q180 70 132 58Z" fill="url(#dt-sail)"/>
+    <path class="sail sail--2" d="M130 62Q180 80 234 62L242 152Q182 174 122 152Z" fill="url(#dt-sail)"/>
+    <path class="sail sail--2" d="M130 62Q180 80 234 62L242 152Q182 174 122 152Z" fill="url(#dt-billow)"/>
+    <path class="sail sail--3" d="M236 92Q268 102 300 92L304 150Q268 164 232 150Z" fill="url(#dt-sail)"/>
+    <path class="sail sail--2" d="M100 88L50 214L102 206Z" fill="url(#dt-sail)"/>
+    <path class="sail sail--3" d="M272 74L350 190L278 190Z" fill="url(#dt-sail)"/>
+  </g>
+ 
+  <!-- volume lambung, pagar, tangga tali -->
+  <path d="M36 190H112V216H318L350 196Q346 232 308 252Q290 262 262 262H120Q70 262 48 232Q34 214 36 190Z" fill="url(#dt-hull)"/>
+  <path d="M112 216H318" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+  <path d="M70 257Q190 267 300 255" stroke="#1d1208" stroke-opacity=".5" stroke-width="2" fill="none"/>
+  <path d="M124 208V216M138 208V216M152 208V216M166 208V216M180 208V216M194 208V216M208 208V216M222 208V216M236 208V216M250 208V216M264 208V216M278 208V216M292 208V216M306 208V216" stroke="#2b1a0b" stroke-width="1.6"/>
+  <path d="M176 66L128 208M166.1 86.3H172.1M159.3 106.6H165.3M152.4 126.9H158.4M145.6 147.1H151.6M138.7 167.4H144.7M131.9 187.7H137.9M184 66L236 208M188.4 86.3H194.4M195.9 106.6H201.9M203.3 126.9H209.3M210.7 147.1H216.7M218.1 167.4H224.1M225.6 187.7H231.6" stroke="#3e2714" stroke-width="1.1" opacity=".75" fill="none"/>
+ 
+  <!-- pantulan cahaya lentera di air (muncul saat malam) -->
+  <g class="dt-refl">
+    <ellipse cx="46" cy="280" rx="6" ry="20" fill="url(#dt-refl)"/>
+    <ellipse cx="196" cy="282" rx="6" ry="20" fill="url(#dt-refl)"/>
+    <ellipse cx="262" cy="280" rx="6" ry="18" fill="url(#dt-refl)"/>
+    <ellipse cx="314" cy="276" rx="6" ry="16" fill="url(#dt-refl)"/>
+  </g>
+ 
+  <!-- LENTERA (4 buah). Geser posisi lewat transform="translate(x y)" -->
+    <path d="M46 190V176" stroke="#2b1a0b" stroke-width="2" stroke-linecap="round"/>
+    <g class="dt-lamp" transform="translate(46 184)" style="--d:0s">
+      <circle class="dt-halo" r="62" fill="url(#dt-glow2)"/>
+      <circle class="dt-halo" r="28" fill="url(#dt-glow)"/>
+      <path class="dt-rays" d="M-30 0H30M0-30V30M-21-21L21 21M21-21L-21 21" stroke="#ffe3a0" stroke-width="1" stroke-linecap="round"/>
+      <path d="M0-11V-6" stroke="#2b1a0b" stroke-width="1.4"/>
+      <path d="M-4.5-6H4.5L3.5-4H-3.5Z" fill="#2b1a0b"/>
+      <rect class="dt-glass" x="-3.8" y="-4" width="7.6" height="9" rx="1.6" fill="#8a6a2a" stroke="#2b1a0b" stroke-width="1"/>
+      <path d="M-3.5 5H3.5L2.5 7H-2.5Z" fill="#2b1a0b"/>
+    </g>
+    <path d="M180 190H196" stroke="#2b1a0b" stroke-width="2" stroke-linecap="round"/>
+    <g class="dt-lamp" transform="translate(196 198)" style="--d:0.7s">
+      <circle class="dt-halo" r="62" fill="url(#dt-glow2)"/>
+      <circle class="dt-halo" r="28" fill="url(#dt-glow)"/>
+      <path class="dt-rays" d="M-30 0H30M0-30V30M-21-21L21 21M21-21L-21 21" stroke="#ffe3a0" stroke-width="1" stroke-linecap="round"/>
+      <path d="M0-11V-6" stroke="#2b1a0b" stroke-width="1.4"/>
+      <path d="M-4.5-6H4.5L3.5-4H-3.5Z" fill="#2b1a0b"/>
+      <rect class="dt-glass" x="-3.8" y="-4" width="7.6" height="9" rx="1.6" fill="#8a6a2a" stroke="#2b1a0b" stroke-width="1"/>
+      <path d="M-3.5 5H3.5L2.5 7H-2.5Z" fill="#2b1a0b"/>
+    </g>
+    <path d="M262 208V192" stroke="#2b1a0b" stroke-width="2" stroke-linecap="round"/>
+    <g class="dt-lamp" transform="translate(262 200)" style="--d:1.4s">
+      <circle class="dt-halo" r="62" fill="url(#dt-glow2)"/>
+      <circle class="dt-halo" r="28" fill="url(#dt-glow)"/>
+      <path class="dt-rays" d="M-30 0H30M0-30V30M-21-21L21 21M21-21L-21 21" stroke="#ffe3a0" stroke-width="1" stroke-linecap="round"/>
+      <path d="M0-11V-6" stroke="#2b1a0b" stroke-width="1.4"/>
+      <path d="M-4.5-6H4.5L3.5-4H-3.5Z" fill="#2b1a0b"/>
+      <rect class="dt-glass" x="-3.8" y="-4" width="7.6" height="9" rx="1.6" fill="#8a6a2a" stroke="#2b1a0b" stroke-width="1"/>
+      <path d="M-3.5 5H3.5L2.5 7H-2.5Z" fill="#2b1a0b"/>
+    </g>
+    <path d="M314 216V198" stroke="#2b1a0b" stroke-width="2" stroke-linecap="round"/>
+    <g class="dt-lamp" transform="translate(314 204)" style="--d:2.1s">
+      <circle class="dt-halo" r="62" fill="url(#dt-glow2)"/>
+      <circle class="dt-halo" r="28" fill="url(#dt-glow)"/>
+      <path class="dt-rays" d="M-30 0H30M0-30V30M-21-21L21 21M21-21L-21 21" stroke="#ffe3a0" stroke-width="1" stroke-linecap="round"/>
+      <path d="M0-11V-6" stroke="#2b1a0b" stroke-width="1.4"/>
+      <path d="M-4.5-6H4.5L3.5-4H-3.5Z" fill="#2b1a0b"/>
+      <rect class="dt-glass" x="-3.8" y="-4" width="7.6" height="9" rx="1.6" fill="#8a6a2a" stroke="#2b1a0b" stroke-width="1"/>
+      <path d="M-3.5 5H3.5L2.5 7H-2.5Z" fill="#2b1a0b"/>
+    </g>
+</svg>
+          </div>
+        </div>
+        <div class="l-wave l-wave--2"><svg class="wave wave--2" viewBox="0 0 2400 220" preserveAspectRatio="none"><path d="M0 60 Q150 20 300 60 T600 60 T900 60 T1200 60 T1500 60 T1800 60 T2100 60 T2400 60 V220 H0 Z"/></svg></div>
+        <div class="l-wave l-wave--3"><svg class="wave wave--3" viewBox="0 0 2400 220" preserveAspectRatio="none"><path d="M0 60 Q150 20 300 60 T600 60 T900 60 T1200 60 T1500 60 T1800 60 T2100 60 T2400 60 V220 H0 Z"/></svg></div>
+        <div class="sea__mist"></div>
+      </div>
+
+      <!-- TALI GANTUNGAN: ujung atas menempel di bawah navbar, ujung bawah di paku poster (digerakkan oleh js/main.js) -->
+      <svg class="ropes" id="ropes" aria-hidden="true" focusable="false">
+        <g class="rope-set"><path class="rope-a"/><path class="rope-b"/><circle class="rope-ring" r="6"/><circle class="rope-knot" r="4.5"/></g>
+        <g class="rope-set"><path class="rope-a"/><path class="rope-b"/><circle class="rope-ring" r="6"/><circle class="rope-knot" r="4.5"/></g>
+      </svg>
+
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <!-- EDIT teks tetap di bawah ini langsung di HTML -->
+          <p class="hero__ahoy">AHOY! WELCOME TO MY JOURNEY</p>
+          <h1 class="hero__name" data-bind="profile.fullName"></h1>
+          <p class="hero__role" data-bind="profile.role"></p>
+          <p class="hero__tagline">“<span data-bind="profile.tagline"></span>”</p>
+          <div class="hero__cta">
+            <!-- EDIT teks tombol hero -->
+            <a href="#about" class="btn btn--primary">Explore My Journey</a>
+            <a href="#contact" class="btn btn--ghost">Meet the Captain</a>
+            <a href="#portfolio" class="btn btn--wood">View My Crews / Projects</a>
+          </div>
+        </div>
+
+        <div class="hero__portrait">
+          <div class="portrait">
+            <div class="portrait__parallax">
+              <div class="portrait__float">
+                <figure class="poster">
+                  <span class="poster__nail poster__nail--l" aria-hidden="true"></span>
+                  <span class="poster__nail poster__nail--r" aria-hidden="true"></span>
+                  <figcaption class="poster__title" id="poster-title" data-bind="profile.bounty.title"></figcaption>
+                  <div class="poster__photo"><img id="profile-photo" alt="" width="400" height="500" /></div>
+                  <div class="poster__foot" id="poster-foot">
+                    <p class="poster__alias" data-bind="profile.bounty.alias"></p>
+                    <p class="poster__amount"><span aria-hidden="true">฿</span> <span data-bind="profile.bounty.amount"></span></p>
+                    <p class="poster__note" data-bind="profile.bounty.note"></p>
+                  </div>
+                </figure>
+                <svg class="portrait__flag" viewBox="0 0 80 60" role="img" aria-label="Bendera Merah Putih" focusable="false">
+  <path d="M4 2v56" stroke="#3e2714" stroke-width="3" stroke-linecap="round" />
+  <g class="flag-wave">
+    <path d="M6 6c14-6 22 6 36 0s22 6 32 0v26c-10 6-18-6-32 0S20 38 6 32z" fill="#ffffff" stroke="#b9a678" stroke-width="1" stroke-linejoin="round" />
+    <path d="M6 6c14-6 22 6 36 0s22 6 32 0v13c-10 6-18-6-32 0S20 25 6 19z" fill="#e70011" />
+  </g>
+</svg>
+                <svg class="portrait__ribbon" viewBox="0 0 90 40" aria-hidden="true" focusable="false">
+                  <path class="ribbon-wave" d="M2 20c14-14 22 14 36 0s22 14 36 0 10-6 14-4" fill="none" stroke="#e9b44c" stroke-width="4" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="hero__scroll" aria-label="Gulir ke bagian About"><span>Berlayar ke bawah</span><i aria-hidden="true"></i></a>
+    </section>
+
+    <!-- ==================== LAUTAN DALAM ====================
+         Semua section di bawah hero berada di dalam satu kolom laut (.ocean):
+         makin ke bawah makin dalam. Dekorasi (terumbu, ikan, dll.) dibuat otomatis oleh js/ocean.js -->
+    <div class="ocean" id="ocean">
+    <div class="ocean__deco" id="ocean-deco" aria-hidden="true"></div>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="section section--about">
+      <div class="container">
+        <div class="reveal section__head">
+          <!-- EDIT judul & kalimat pembuka section -->
+          <p class="eyebrow">Chapter I</p>
+          <h2>The Captain's Log</h2>
+          <p class="section__lead">Catatan perjalanan seorang pelaut yang sedang mengejar mimpinya.</p>
+        </div>
+        <div class="log" id="about-log"></div>
+      </div>
+    </section>
+
+    <!-- ==================== HOBBIES ==================== -->
+    <section id="hobbies" class="section section--hobbies">
+      <div class="container">
+        <div class="reveal section__head">
+          <p class="eyebrow">Chapter II</p>
+          <h2>My Crew's Interests</h2>
+          <p class="section__lead">Setiap hobi adalah sebuah pulau yang selalu menyenangkan untuk disinggahi.</p>
+        </div>
+        <ul class="islands" id="hobbies-list"></ul>
+      </div>
+    </section>
+
+    <!-- ==================== PORTFOLIO ==================== -->
+    <section id="portfolio" class="section section--portfolio">
+      <div class="container">
+        <div class="reveal section__head">
+          <p class="eyebrow">Chapter III</p>
+          <h2>My Treasure Collection</h2>
+          <p class="section__lead">Harta karun yang kutemukan dan kubuat sepanjang pelayaran.</p>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter kategori proyek"></div>
+        <ul class="chests" id="projects-list" aria-live="polite"></ul>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section id="skills" class="section section--skills">
+      <div class="container">
+        <div class="reveal section__head">
+          <p class="eyebrow">Chapter IV</p>
+          <h2>My Adventure Equipment</h2>
+          <p class="section__lead">Perlengkapan yang kubawa saat berlayar menuju mimpi berikutnya.</p>
+        </div>
+        <div class="gear" id="skills-list"></div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="section section--contact">
+      <div class="container">
+        <div class="reveal section__head">
+          <p class="eyebrow">Chapter V</p>
+          <h2>Find the Captain</h2>
+          <p class="section__lead">Titik pertemuan di pelabuhan — kirim kabar, kita atur pelayaran bersama.</p>
+        </div>
+        <ul class="harbor" id="contact-list"></ul>
+
+        <div class="reveal letter">
+          <h3>✉️ Kirim Pesan dalam Botol</h3>
+          <p class="letter__notice" id="form-notice" role="note" hidden>
+            Form belum dikonfigurasi, jadi pengirimannya dinonaktifkan agar tidak ada pesan sukses palsu.
+            Isi <code>formEndpoint</code> di <code>js/data.js</code> (mis. endpoint Formspree).
+          </p>
+          <form id="contact-form">
+            <label>Nama <input name="name" type="text" required autocomplete="name" /></label>
+            <label>Email <input name="email" type="email" required autocomplete="email" /></label>
+            <label>Pesan <textarea name="message" rows="5" required></textarea></label>
+            <button type="submit" class="btn btn--primary" id="form-submit">Kirim Pesan</button>
+            <p class="letter__status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+    </div><!-- /ocean -->
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" id="footer">
+    <!-- DASAR LAUT (terumbu karang, pasir, peti harta) — digambar oleh js/ocean.js -->
+    <div class="footer__scene" id="seabed" aria-hidden="true"></div>
+    <div class="footer__inner">
+      <!-- EDIT teks footer -->
+      <p>© <span id="year"></span> <span data-bind="profile.fullName"></span>. Berlayar dengan semangat petualangan.</p>
+      <p class="footer__credit">Desain terinspirasi suasana petualangan laut — ilustrasi orisinal.</p>
+      <button type="button" class="footer__x" id="easter-egg" aria-label="Tanda X di peta — ada sesuatu di sini?">✕</button>
+    </div>
+    <!-- EDIT pesan rahasia easter egg -->
+    <div class="toast" id="toast" role="status" hidden>🏴‍☠️ Kamu menemukan harta tersembunyi! Hadiahnya: semangat untuk terus berlayar.</div>
+  </footer>
+
+  <button type="button" class="to-top" id="to-top" aria-label="Kembali ke atas" tabindex="-1" data-icon="ship" data-size="30"></button>
+  <div class="compass-cursor" id="compass-cursor" aria-hidden="true" data-icon="compass" data-size="36" hidden></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/extras.js"></script>
+  <script src="js/ocean.js"></script>
+</body>
+</html>
